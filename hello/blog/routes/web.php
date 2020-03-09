@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//connect controller with tables
+Route::resource('room', 'RoomController');
+Route::resource('discount_code', 'CodeController');
+Route::resource('book', 'BookController');

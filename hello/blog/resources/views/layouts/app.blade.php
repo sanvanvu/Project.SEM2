@@ -18,6 +18,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+
 </head>
 <body>
     <div id="app">
@@ -33,7 +36,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="room">Rooms</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="discount_code">Discount codes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="book">Book information</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -43,11 +54,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
+                            <!-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif -->
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -73,6 +84,21 @@
         </nav>
 
         <main class="py-4">
+            @foreach(['danger', 'warning', 'success', 'info'] as $msg)
+                @if(session($msg))
+                <div class="alert alert-{{$msg}}">
+                    {{session($msg)}}
+                </div>
+                @endif
+                @endforeach
+
+                @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    @foreach($errors->all() as $er)
+                    <p>{{$er}}</p>
+                    @endforeach
+                </div>
+                @endif
             @yield('content')
         </main>
     </div>
