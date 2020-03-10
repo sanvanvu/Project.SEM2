@@ -1,3 +1,49 @@
-/* .site-section .container{
-    background: #1a1a1a;
-} */
+.view-all:hover{
+    color: #fccd5d !important;
+}
+
+.site-section{
+    background-color: #1c1c1c !important;
+    padding: 0px !important;
+}
+
+#intro{
+    background-image: url('../images/backgroung.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    width: 100% !important;
+    margin: 0px !important;
+}
+
+.content-wrap{
+    height: 100%;
+    width: 100% !important;
+    position: relative;
+    background: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+    
+}
+
+.content-text{
+    color: white;
+    text-align: justify;
+}
+
+.text-center{
+    width: 70%;
+    margin-left: 15%;
+}
+
+#horror{
+    background-image: url('../images/background.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    width: 100% !important;
+    margin: 0px !important;
+}
+

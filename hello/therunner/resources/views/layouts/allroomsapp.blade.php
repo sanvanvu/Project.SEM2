@@ -85,43 +85,17 @@
     </div>
   
     
-    <div class="slide-one-item home-slider owl-carousel">
-      
-      <div class="site-blocks-cover overlay" style="background-image: url(images/bg-05.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url(images/allchallenges.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center" data-aos="fade">
               
-              <h1 class="mb-2">Welcome To The Runner</h1>
-              <h2 class="caption">Logic &amp; Horror</h2>
+              <h1 class="mb-2">All logic challenges</h1>
+              <h2 class="caption">Logical thinking</h2>
             </div>
           </div>
         </div>
-      </div>  
-
-      <div class="site-blocks-cover overlay" style="background-image: url(images/bg-04.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
-              <h1 class="mb-2">Unique Experience</h1>
-              <h2 class="caption">Enjoy With Us</h2>
-            </div>
-          </div>
-        </div>
-      </div> 
-
-      <div class="site-blocks-cover overlay" style="background-image: url(images/bg-03.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
-              <h1 class="mb-2">Relaxing Time</h1>
-              <h2 class="caption">Can you escape?</h2>
-            </div>
-          </div>
-        </div>
-      </div> 
-
-    </div>
+      </div>
     <!-- <div class="py-5 quick-contact-info">
       <div class="container">
         <div class="row">

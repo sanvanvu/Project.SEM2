@@ -19,4 +19,13 @@ class frontendController extends Controller
             ]
         );
     }
+
+    public function logical_rooms(){
+        $lsLogical = Room::where('type', '0')->get();
+        return view('all_logic_rooms')->with(
+            [
+                'lsLogical' => $lsLogical
+            ]
+        );
+    }
 }

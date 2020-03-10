@@ -12,10 +12,9 @@
 */
 
 Route::get('/', 'FrontendController@welcome');
+Route::get('index.html', 'FrontendController@welcome');
+Route::get('logicalchallenges.html', 'FrontendController@logical_rooms');
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Auth::routes();
 
