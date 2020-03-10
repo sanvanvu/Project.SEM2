@@ -20,8 +20,17 @@ class frontendController extends Controller
         );
     }
 
-    public function logical_rooms(){
-        $lsLogical = Room::where('type', '0')->get();
+    public function logical_rooms(Request $request){
+        $radio = $request->input('filter');
+        if(isset($radio)) {
+            $lsLogical = Room::where([
+                ['type', '=', '0'],
+                ["level", '=', "%$radio%"]
+            ])->get();
+        } else{
+            $lsLogical = Room::where('type', '0')->get();
+        }
+        
         return view('all_logic_rooms')->with(
             [
                 'lsLogical' => $lsLogical

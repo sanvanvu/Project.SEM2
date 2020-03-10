@@ -1,23 +1,86 @@
 @extends('layouts.allroomsapp')
 
 @section('content')
-    <div class="container">
+    <div class="my-container">
+        <div class="count">
+            <b class="text-white float-right mr-5">Có tất cả <span class="text-info">{{$lsLogical->count()}}</span> thử thách</b>
+        </div>
+        <br>
+        <hr color="#1c1c1c" size="0">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 pl-5">
                 <div class="filer">
-                    <b>Lọc theo độ khó:</b>
-                    <form action="/action_page.php">
-                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                    <label for="vehicle1"> I have a bike</label><br>
-                    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-                    <label for="vehicle2"> I have a car</label><br>
-                    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
-                    <label for="vehicle3"> I have a boat</label><br><br>
-                    <input type="submit" value="Submit">
+                    <b class="text-orange">Lọc theo độ khó</b>
+                    <form action="frontendController@logical_rooms" method="get">
+                    @csrf
+                        <div class="form-group">
+                            <input type="radio" id="3sao" name="filter" value="3">
+                            <label for="3sao">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                            </label><br>
+                            <input type="radio" id="4sao" name="filter" value="4">
+                            <label for="4sao">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                            </label><br>
+                            <input type="radio" id="5sao" name="filter" value="5">
+                            <label for="5sao">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                            </label><br>
+                            <input type="radio" id="6sao" name="filter" value="6">
+                            <label for="6sao">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                            </label><br>
+                            <input type="radio" id="off" name="filter" value="0">
+                            <label for="off" class="text-white">
+                                Bỏ bộ lọc
+                            </label><br>
+                            <!-- <input type="submit" value="Submit" class="btn btn-primary"> -->
+                        </div>
                     </form>
                 </div>
+                <hr color="white" size="10">
+                <div class="address">
+                    <b class="text-orange">Địa chỉ</b>
+                    <p class="text-white">
+                    The Runner: Số 16, đường Nguyễn Khánh Toàn, Cầu Giấy, Hà Nội
+                    </p>
+                    <hr color="white" size="10">
+                    <p class="text-white">
+                    Số 8 Tôn Thất Thuyết, toà nhà Detech
+                    </p>
+                </div>
             </div>
-            <div class="col-md-9"></div>
+            <div class="col-md-9">
+                <div class="row">
+                    <?php foreach ($lsLogical as $key => $logical): ?>
+                        <div class="col-md-6 col-lg-4 mb-3 p-0">
+                            <div class="hotel-room text-center rounded">
+                            <a href="#" class="d-block mb-0 thumbnail"><img src="{{$logical->img}}" alt="Image" class="img-fluid"></a>
+                            <div class="hotel-room-body">
+                                <h3 class="heading mb-0"><a href="#">{{$logical->name}}</a></h3>
+                                @for($i = 0; $i < $logical->level; $i++)
+                                <i class="fas fa-star text-warning"></i>
+                                @endfor
+                            </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>    
+                </div>
+            </div>
         </div>
     </div>
 

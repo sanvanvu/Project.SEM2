@@ -47,3 +47,21 @@
     margin: 0px !important;
 }
 
+.hotel-room{
+    padding: 0px !important;
+}
+
+.my-container{
+    padding: 0px !important;
+    margin: 0px !important;
+    background: #1c1c1c !important;
+    padding-top: 30px !important;
+}
+
+.my-container .row{
+    padding: 20px !important;
+}
+
+.text-orange{
+    color: #ffa930;
+}
