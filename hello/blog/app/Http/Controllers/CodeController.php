@@ -81,7 +81,12 @@ class CodeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $code = \App\discount_code::find($id);
+        return view('admin.discount_code.update')->with(
+            [
+                'code' => $code
+            ]
+        );
     }
 
     /**
@@ -93,7 +98,20 @@ class CodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $name = $request->input('name');
+        $type = $request->input('type');
+        $value = $request->input('value');
+        $status = $request->input('status');
+
+        $code = \App\discount_code::find($id);
+        $code->name = $name;
+        $code->type = $type;
+        $code->value = $value;
+        $code->status = $status;
+
+        $code->save();
+        $request->session()->flash('success', 'Discount-code updated successfully');
+        return redirect()->route('discount_code.index');
     }
 
     /**
