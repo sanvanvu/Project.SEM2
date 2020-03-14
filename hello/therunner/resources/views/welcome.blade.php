@@ -6,17 +6,22 @@
         <div class="d-flex text-white mb-4">
             <p>
                 <b class="mr-3 ">LOGIC CHALLENGE</b>
-                <a href="" class="text-white view-all">Xem tất cả</a> >
+                <a href="logicalchallenges.html" class="text-white view-all">Xem tất cả</a> >
             </p>
         </div>
         <div class="row mb-5">
             <?php foreach ($lsLogical as $key => $logical): ?>
 
-                <div class="col-md-6 col-lg-4 mb-2 ">
-                    <div class="hotel-room text-center rounded">
-                    <a href="#" class="d-block mb-0 thumbnail"><img src="{{$logical->img}}" alt="Image" class="img-fluid"></a>
+                <div class="col-md-6 col-lg-4 mb-2 less-margin">
+                    <div class="hotel-room text-center rounded mb-4">
+                    @if($logical->hot==0)
+                        <span class="tag rounded">
+                            <b>HOT</b>
+                        </span>
+                    @endif
+                    <a href="room.html?id={{$logical->id}}" class="d-block mb-0 thumbnail"><img src="{{$logical->img}}" alt="Image" class="img-fluid"></a>
                     <div class="hotel-room-body">
-                        <h3 class="heading mb-0"><a href="#">{{$logical->name}}</a></h3>
+                        <h4 class="heading mb-0"><a href="room.html?id={{$logical->id}}">{{$logical->name}}</a></h4>
                         @for($i = 0; $i < $logical->level; $i++)
                         <i class="fas fa-star text-warning"></i>
                         @endfor
@@ -34,7 +39,7 @@
             <div class="text-center">
                 <h4 class="text-warning">The Runner</h4>
                 <p class="content-text">
-                Nếu bạn đang tìm kiếm các hoạt động xây dựng đội nhóm như một cách để tăng cường và cải thiện khả năng sáng tạo, giao tiếp và ủy thác giữa các nhân viên của mình, các trò chơi xây dựng đội ngũ The Runner của chúng tôi sẽ thúc đẩy việc sử dụng các chiến lược trong thế giới thực. Mỗi trò chơi trình bày một môi trường độc đáo và tương tác, trong đó mọi người đóng góp cho ý tưởng xây dựng đội nhóm. Tất cả những người tham gia đóng góp vào việc học tập chung và tăng tính kết nối trong một môi trường thú vị và hấp dẫn có thể được thiết kế cho các loại tính cách khác nhau. Những trò chơi này châm ngòi cuộc trò chuyện xung quanh các kỹ năng được phát triển và chiến lược nhóm được sử dụng để hoàn thành các mục tiêu cuối cùng. Họ cũng khuyến khích sự phản ánh về những gì màveve có thể được thực hiện tốt hơn. Chúng tôi cung cấp các tùy chọn cho các đội thuộc mọi quy mô! Liên hệ với chúng tôi hôm nay và để chúng tôi tổ chức xây dựng đội ngũ của bạn ở bất kỳ địa điểm nào của chúng tôi trên toàn quốc.
+                Nếu bạn đang tìm kiếm các hoạt động xây dựng đội nhóm như một cách để tăng cường và cải thiện khả năng sáng tạo, giao tiếp và ủy thác giữa các nhân viên của mình, các trò chơi xây dựng đội ngũ The Runner của chúng tôi sẽ thúc đẩy việc sử dụng các chiến lược trong thế giới thực. Mỗi trò chơi trình bày một môi trường độc đáo và tương tác, trong đó mọi người đóng góp cho ý tưởng xây dựng đội nhóm. Tất cả những người tham gia đóng góp vào việc học tập chung và tăng tính kết nối trong một môi trường thú vị và hấp dẫn có thể được thiết kế cho các loại tính cách khác nhau. Những trò chơi này châm ngòi cuộc trò chuyện xung quanh các kỹ năng được phát triển và chiến lược nhóm được sử dụng để hoàn thành các mục tiêu cuối cùng. Họ cũng khuyến khích sự phản ánh về những gì việc có thể được thực hiện tốt hơn. Chúng tôi cung cấp các tùy chọn cho các đội thuộc mọi quy mô! Liên hệ với chúng tôi hôm nay và để chúng tôi tổ chức xây dựng đội ngũ của bạn ở bất kỳ địa điểm nào của chúng tôi trên toàn quốc.
                 </p>
             </div>
         </div>
@@ -44,7 +49,7 @@
         <div class="d-flex text-white">
             <p>
                 <b class="mr-3 ">HORROR CHALLENGE</b>
-                <a href="" class="text-white view-all">Xem tất cả</a> >
+                <a href="horrorchallenges.html" class="text-white view-all">Xem tất cả</a> >
             </p>
         </div>
 
@@ -73,11 +78,16 @@
                     <div class="col-md-6 d-flex align-items-center">
                         <div class="row">
                             <?php foreach ($lsHorror as $key => $logical): ?>
-                                <div class="col-md-6 mb-2">
+                                <div class="col-md-6 pt-4">
                                     <div class="hotel-room text-center rounded">
-                                    <a href="#" class="d-block mb-0 thumbnail"><img src="{{$logical->img}}" alt="Image" class="img-fluid"></a>
+                                        @if($logical->hot==0)
+                                            <span class="tag rounded">
+                                                <b>HOT</b>
+                                            </span>
+                                        @endif
+                                    <a href="room.html?id={{$logical->id}}" class="d-block mb-0 thumbnail"><img src="{{$logical->img}}" alt="Image" class="img-fluid"></a>
                                     <div class="hotel-room-body">
-                                        <h3 class="heading mb-0"><a href="#">{{$logical->name}}</a></h3>
+                                        <h4 class="heading mb-0"><a href="room.html?id={{$logical->id}}">{{$logical->name}}</a></h4>
                                         @for($i = 0; $i < $logical->level; $i++)
                                         <i class="fas fa-star text-warning"></i>
                                         @endfor
@@ -92,4 +102,5 @@
         </div>
 
 </div>
+
 @endsection

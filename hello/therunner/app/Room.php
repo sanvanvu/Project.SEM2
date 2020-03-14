@@ -10,4 +10,8 @@ class Room extends Model
     //
     use SoftDeletes;
     protected $date = ['deleted_at'];
+
+    public function book(){
+        return $this->hasMany('\App\Book');
+      }
 }

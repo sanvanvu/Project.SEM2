@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/mystyle.css">
+</head>
+<body>
+  <h1>test</h1>
+  <div class="container">
+    <div id="circle"></div>
+    <div id="small-circle" class=""></div>
+  </div>
+</body>
+<script>
+  var c = document.getElementById('circle');
+  var sc= document.getElementById('small-circle');
+  var top = -5;
+  var right = 0;
+  c.addEventListener('click', move);
+
+  function move(){
+    sc.style.top = `${--top}px`;
+    sc.style.right = `${++right}px`;
+  }
+</script>
+</html>

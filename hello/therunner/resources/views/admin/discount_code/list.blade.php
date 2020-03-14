@@ -21,8 +21,6 @@
       <th>Status</th>
       <th>Delete</th>
       <th>Update</th>
-      <th></th>
-      <th></th>
     </tr>
     @foreach($lsCode as $code)
       <tr>

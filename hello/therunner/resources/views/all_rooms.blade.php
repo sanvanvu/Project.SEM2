@@ -1,9 +1,9 @@
 @extends('layouts.allroomsapp')
 
 @section('content')
-    <div class="my-container">
+<div class="my-container">
         <div class="count">
-            <b class="text-white float-right mr-5">Có tất cả <span class="text-info">{{$lsLogical->count()}}</span> thử thách</b>
+            <b class="text-white float-right mr-5">Có tất cả <span class="text-info">{{$ls->count()}}</span> thử thách</b>
         </div>
         <br>
         <hr color="#1c1c1c" size="0">
@@ -66,18 +66,18 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <?php foreach ($lsLogical as $key => $logical): ?>
+                    <?php foreach ($ls as $key => $room): ?>
                         <div class="col-md-6 col-lg-4 mb-4 p-0">
                             <div class="hotel-room text-center rounded">
-                            @if($logical->hot==0)
+                            @if($room->hot==0)
                                 <span class="tag rounded">
                                     <b>HOT</b>
                                 </span>
                             @endif
-                            <a href="room.html?id={{$logical->id}}" class="d-block mb-0 thumbnail"><img src="{{$logical->img}}" alt="Image" class="img-fluid"></a>
+                            <a href="room.html?id={{$room->id}}" class="d-block mb-0 thumbnail"><img src="{{$room->img}}" alt="Image" class="img-fluid"></a>
                             <div class="hotel-room-body">
-                                <h3 class="heading mb-0"><a href="room.html?id={{$logical->id}}">{{$logical->name}}</a></h3>
-                                @for($i = 0; $i < $logical->level; $i++)
+                                <h3 class="heading mb-0"><a href="room.html?id={{$room->id}}">{{$room->name}}</a></h3>
+                                @for($i = 0; $i < $room->level; $i++)
                                 <i class="fas fa-star text-warning"></i>
                                 @endfor
                             </div>

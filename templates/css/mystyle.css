@@ -1,0 +1,35 @@
+#circle{
+  width: 100px;
+  height: 100px;
+  background: red;
+  margin: auto;
+  border-radius: 50%;
+}
+
+#small-circle{
+  width: 10px;
+  height: 10px;
+  background: orange;
+  margin: auto;
+  border-radius: 50%;
+  position: relative;
+  top: -5px;
+  right: 0px;
+}
+
+.move{
+  animation-name: mymove;
+  animation-duration: 1s;
+
+}
+
+@keyframes mymove {
+  0%{
+    top: -5px;
+    right: 0px;
+  }
+  100%{
+    top:-56px;
+    right: 50px;
+  }
+}

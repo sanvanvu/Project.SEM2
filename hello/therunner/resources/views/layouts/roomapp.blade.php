@@ -61,17 +61,17 @@
                     
                     <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3">&#8801;</span></a></div>
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
-                      <li class="active">
+                      <li>
                         <a href="index.html">Trang chủ</a>
                       </li>
-                      <li class="has-children">
-                        <a href="allchallenges.html">Phòng chơi</a>
+                      <li class="has-children active">
+                        <a href="#">Phòng chơi</a>
                         <ul class="dropdown arrow-top">
                           <li><a href="logicalchallenges.html">Logical</a></li>
                           <li><a href="horrorchallenges.html">Horror</a></li>
                         </ul>
                       </li>
-                      <li id="cancelBtn"><a href="cancel.html">Huỷ phòng chơi</a></li>
+                      <li><a href="cancel.html" id="cancelBtn">Huỷ phòng chơi</a></li>
                       <li><a href="about.html">Giới thiệu</a></li>
                       <li><a href="contact.html">Liên hệ</a></li>
                     </ul>
@@ -85,43 +85,17 @@
     </div>
   
     
-    <div class="slide-one-item home-slider owl-carousel">
-      
-      <div class="site-blocks-cover overlay" style="background-image: url(images/bg-05.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url({{$room->img}});" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center" data-aos="fade">
-              
-              <h1 class="mb-2">Welcome To The Runner</h1>
-              <h2 class="caption">Logic &amp; Horror</h2>
+
+              <h1 class="mb-2">{{$room->name}}</h1>
+              <h2 class="caption"></h2>
             </div>
           </div>
         </div>
-      </div>  
-
-      <div class="site-blocks-cover overlay" style="background-image: url(images/bg-04.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
-              <h1 class="mb-2">Unique Experience</h1>
-              <h2 class="caption">Enjoy With Us</h2>
-            </div>
-          </div>
-        </div>
-      </div> 
-
-      <div class="site-blocks-cover overlay" style="background-image: url(images/bg-03.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
-              <h1 class="mb-2">Relaxing Time</h1>
-              <h2 class="caption">Can you escape?</h2>
-            </div>
-          </div>
-        </div>
-      </div> 
-
-    </div>
+      </div>
     <!-- <div class="py-5 quick-contact-info">
       <div class="container">
         <div class="row">
@@ -152,7 +126,7 @@
         </div>
       </div>
     </div> -->
-              @foreach(['danger', 'warning', 'success', 'info'] as $msg)
+    @foreach(['danger', 'warning', 'success', 'info'] as $msg)
                 @if(session($msg))
                 <div class="my-container">
                   <div class="alert alert-{{$msg}}">
@@ -170,25 +144,6 @@
                 </div>
               @endif
     @yield('content')
-    <!-- <div id="modal2" class="">
-      <div id="modal-content2" class="p-5 rounded bg-warning">
-          <div class="p-3">
-              <form method="post" action="" onsubmit="return confirm('Are you sure?')">
-                  @csrf
-                  @method('delete')
-
-                  <div class="form-group">
-                      <label for="phone" class="text-white">Mã đặt phòng</label>
-                      <input type="text" class="form-control" id="id" name="id" required> 
-                  </div>
-                  <div class="form-group">
-                  <input type="submit" name="" value="Huỷ đặt phòng" class="btn btn-info text-white">
-                  </div>  
-              </form>
-          </div>
-      </div>
-    </div> -->
-   
     <footer class="site-footer">
       <div class="container">
         
@@ -269,6 +224,7 @@
   <script src="js/mediaelement-and-player.min.js"></script>
 
   <script src="js/main.js"></script>
+  <script src="js/myjs.js"></script>
     
 
   <script>

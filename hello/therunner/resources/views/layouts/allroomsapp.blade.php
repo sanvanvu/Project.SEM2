@@ -52,7 +52,7 @@
           <div class="py-1">
             <div class="row align-items-center">
               <div class="col-2">
-                <a href=""><img src="images/logo-01.png" alt="" width="45%"></a>
+                <a href="index.html"><img src="images/logo-01.png" alt="" width="45%"></a>
                 <!-- <h2 class="mb-0 site-logo"><a href="index.html">The Runner</a></h2> -->
               </div>
               <div class="col-10">
@@ -61,17 +61,17 @@
                     
                     <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3">&#8801;</span></a></div>
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
-                      <li class="active">
+                      <li>
                         <a href="index.html">Trang chủ</a>
                       </li>
-                      <li class="has-children">
+                      <li class="has-children active">
                         <a href="#">Phòng chơi</a>
                         <ul class="dropdown arrow-top">
                           <li><a href="logicalchallenges.html">Logical</a></li>
-                          <li><a href="rooms.html">Horror</a></li>
+                          <li><a href="horrorchallenges.html">Horror</a></li>
                         </ul>
                       </li>
-                      <li><a href="events.html">Huỷ phòng chơi</a></li>
+                      <li><a href="cancel.html" id="cancelBtn">Huỷ phòng chơi</a></li>
                       <li><a href="about.html">Giới thiệu</a></li>
                       <li><a href="contact.html">Liên hệ</a></li>
                     </ul>
@@ -89,9 +89,9 @@
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center" data-aos="fade">
-              
-              <h1 class="mb-2">All logic challenges</h1>
-              <h2 class="caption">Logical thinking</h2>
+
+              <h1 class="mb-2">All {{$room_name}} challenges</h1>
+              <h2 class="caption">{{$room_tag}}</h2>
             </div>
           </div>
         </div>
@@ -181,7 +181,7 @@
           <div class="col-md-12">
             <p>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="fas fa-heart text-danger"></i><i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>

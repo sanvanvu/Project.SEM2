@@ -13,17 +13,51 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
+        $filter = $request->input('filter');
         $search = $request->search_title;
-        if (isset($search)) {
-            $lsBook = \App\Book::where('name', 'like', "%$search%")->paginate(10);
+
+        $lsBook =\App\Book::withTrashed()->orderBy('created_at', 'desc')->paginate(5);
+
+        if(isset($filter) && $filter==0){
+            //dd($lsBook);
+            $lsBook = \App\Book::orderBy('created_at', 'desc');
+            $lsBook = $lsBook->paginate($lsBook->count());
+            // if(!isset($search)){
+                
+            // } else{
+            //     $lsBook = $lsBook->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
+            //     $lsBook = $lsBook->paginate($lsBook->count());
+            // }
+        } elseif(isset($filter) && $filter==1){ 
+            $lsBook = \App\Book::onlyTrashed()->orderBy('created_at', 'desc');
+            $lsBook = $lsBook->paginate($lsBook->count());
+            // if(!isset($search)){
+                
+            // } else{
+            //     $lsBook = $lsBook->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
+            //     $lsBook = $lsBook->paginate($lsBook->count());
+            // }
+        } elseif(isset($filter) && $filter==2){
+            $lsBook = \App\Book::withTrashed()->orderBy('created_at', 'desc');
+            $lsBook = $lsBook->paginate(5);
+            // if(!isset($search)){
+                
+            // } else{
+            //     $lsBook = $lsBook->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
+            //     $lsBook = $lsBook->paginate($lsBook->count());
+            // }
+        } elseif(isset($search)){
+            $lsBook = \App\Book::withTrashed()->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
+            $lsBook = $lsBook->paginate($lsBook->count());
         }
-        else{
-            $lsBook = \App\Book::paginate(10);
-        }
+       
+        $lsRoom = \App\Room::all();
 
         return view('admin.book_info.list')->with(
             [
-                'lsBook' => $lsBook
+                'lsBook' => $lsBook,
+                'lsRoom' => $lsRoom,
+                'search' => $search
             ]
         );
     }
@@ -33,12 +67,28 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $lsBook = \App\book::All();
-        return view('admin.book_info.create')->with(
+        $id = $request->id;
+        $mydate = $request->book_date;
+        $lsRoom = \App\Room::all();
+        $room = \App\Room::find($id);
+        $lsBook = \App\Book::all();
+        $lsTime = \App\Time_list::all();
+        $check = 0;
+
+        $lsCode = \App\discount_code::select('name')->get();
+
+        return view('book')->with(
             [
-                'lsBook' => $lsBook
+                'lsBook' => $lsBook,
+                'room' => $room,
+                'lsRoom' => $lsRoom,
+                'lsTime' => $lsTime,
+                'mydate' => $mydate,
+                'id' => $id,
+                'lsCode' => $lsCode,
+                'check' => $check
             ]
         );
     }
@@ -55,12 +105,34 @@ class BookController extends Controller
         $email = $request->email;
         $phone = $request->phone;
         $numbers = $request->numbers;
-        $roomId = $request->roomId;
+        $roomId = $request->room_id;
         $bookDate = $request->book_date;
         $bookTime = $request->book_time;
-        $codeName = $request->code_name;
-        $price = $request->price;
-        $status = $request->status;
+        $codeName = $request->code;
+        $lsRoom = \App\Room::all();
+        $room = \App\Room::find($roomId);
+
+        $lsCode = \App\discount_code::all();
+        $price = 0;
+        $check = false;
+        foreach($lsCode as $code){
+            if($codeName==$code->name && $code->status==0){
+                $check = true;
+                $codeId = $code->id;
+                break;
+            }
+        }
+        
+        if($check == false){
+            $price = $room->room_price*$numbers*1000;
+        } else {
+            $code = \App\discount_code::find($codeId);
+            if($code->type == 1){
+                $price = $room->room_price*$numbers*(100-$code->value)/100*1000;
+            } else if($code->type == 0){
+                $price = ($room->room_price*$numbers - $code->value)*1000;
+            }
+        }
 
         $book = new \App\Book();
         $book->customer_name = $name;
@@ -70,13 +142,20 @@ class BookController extends Controller
         $book->room_id = $roomId;
         $book->book_date = $bookDate;
         $book->book_time = $bookTime;
-        $book->status = $status;
+
         $book->price = $price;
         $book->code_name = $codeName;
-
+        
         $book -> save();
-        $request->session()->flash('success', 'Room booked successfully');
-        return redirect()->route('book.index');
+        if($check = false){
+            $request->session()->flash('success', 'Đặt phòng thành công, mã giảm giá ko hợp lệ');
+        } else{
+            $request->session()->flash('success', 'Đặt phòng thành công');
+        }
+        $thisBook = \App\Book::find($book->id);
+        
+        // return redirect()->action('BookController@check_out', [$thisBook->id]);
+        return redirect('checkout.html?id='.$thisBook->id);
     }
 
     /**
@@ -85,9 +164,31 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function check_out(Request $request){
+        $id = $request->id;
+        $thisBook = \App\Book::find($id);
+        $room = \App\Room::find($thisBook->room_id);
+        $codes = \App\discount_code::all();
+        $thiscode = 0;
+        foreach($codes as $code){
+            if($thisBook->code_name == $code->name){
+                $thiscode = $code;
+                break;
+            }
+        }
+        //dd($thiscode->name);
+        return view('checkout')->with(
+            [
+                'thisBook' => $thisBook,
+                'room' => $room,
+                'thiscode' => $thiscode
+            ]
+        );
+    }
+
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -119,8 +220,21 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $book = \App\Book::find($id);
+        if($book == null){
+            $book = \App\Book::withTrashed()->find($id);
+            $room = \App\Room::find($book->room_id);
+            $request->session()->flash('success', 'Phòng đã được huỷ từ trước!');
+        
+            return redirect()->action('FrontendController@welcome');
+        }
+        $book->delete();
+        $request->session()->flash('success', 'Huỷ đặt phòng thành công!');
+        
+        return redirect()->action('FrontendController@welcome');
+           
     }
+
 }

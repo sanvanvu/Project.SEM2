@@ -52,6 +52,7 @@ class RoomController extends Controller
         $image = $request->input('image');
         $description = $request->input('description');
         $level = $request->input('level');
+        $price = $request->input('price');
         $address = $request->input('address');
         $hot = $request->input('hot');
         //dd('hello');
@@ -60,6 +61,7 @@ class RoomController extends Controller
         $room->name = $name;
         $room->description = $description;
         $room->level = $level;
+        $room->room_price = $price;
         $room->address = $address;
         if ($request->hasFile('image')) {
             $imgName = time().".".$request->image->extension();
@@ -117,6 +119,7 @@ class RoomController extends Controller
         $image = $request->input('image');
         $description = $request->input('description');
         $level = $request->input('level');
+        $price = $request->input('price');
         $address = $request->input('address');
         $hot = $request->input('hot');
 
@@ -124,6 +127,7 @@ class RoomController extends Controller
         $room->name = $name;
         $room->description = $description;
         $room->level = $level;
+        $room->room_price = $price;
         $room->address = $address;
         if ($request->hasFile('image')) {
             $imgName = time().".".$request->image->extension();

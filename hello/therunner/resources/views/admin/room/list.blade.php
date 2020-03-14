@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
   <p>Room management</p>
   <form class="form-inline my-2 my-lg-0" method="get">
     @csrf
@@ -20,12 +20,12 @@
       <th>Image</th>
       <th>Description</th>
       <th>Level</th>
+      <th>Room price</th>
       <th>Address</th>
       <th>Hot</th>
       <th>Delete</th>
       <th>Update</th>
-      <th></th>
-      <th></th>
+
     </tr>
     @foreach($lsRoom as $room)
       <tr>
@@ -46,6 +46,7 @@
                 <i class="fas fa-star text-warning"></i>
             @endfor  
         </td>
+        <td>{{$room->room_price}}k/person</td>
         <td>{{$room->address}}</td>
         <td>
             @if($room->hot==0)

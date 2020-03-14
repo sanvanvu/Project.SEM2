@@ -20,6 +20,8 @@
                 <!-- <input type="text" id="description" name="description" class="form-control"> -->
                 <label for="level">Level</label>
                 <input type="number" id="level" name="level" class="form-control">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price" class="form-control">
                 <label for="address">Address</label>
                 <input type="text" id="address" name="address" class="form-control">
                 <div>
