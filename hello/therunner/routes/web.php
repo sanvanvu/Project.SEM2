@@ -31,6 +31,14 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 
+// use App\Mail\Checkoutmail;
+// use Illuminate\Support\Facades\Mail;
+
+// Route::get('/email', function(){
+//   Mail::to('quanlmth1812005@fpt.edu.vn')->send(new Checkoutmail());
+//   return new Checkoutmail();
+// });
+
 
 
 Auth::routes();

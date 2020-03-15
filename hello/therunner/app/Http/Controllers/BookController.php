@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\Checkoutmail;
+use Illuminate\Support\Facades\Mail;
 
 class BookController extends Controller
 {
@@ -20,7 +22,9 @@ class BookController extends Controller
 
         if(isset($filter) && $filter==0){
             //dd($lsBook);
-            $lsBook = \App\Book::orderBy('created_at', 'desc');
+            date_default_timezone_set("Asia/Ho_Chi_Minh");
+            $today = date('Y/m/d');
+            $lsBook = \App\Book::orderBy('created_at', 'desc')->where('book_date', '>=', "$today");
             $lsBook = $lsBook->paginate($lsBook->count());
             // if(!isset($search)){
                 
@@ -153,7 +157,7 @@ class BookController extends Controller
             $request->session()->flash('success', 'Đặt phòng thành công');
         }
         $thisBook = \App\Book::find($book->id);
-        
+        Mail::to($thisBook->customer_email)->send(new Checkoutmail($thisBook));
         // return redirect()->action('BookController@check_out', [$thisBook->id]);
         return redirect('checkout.html?id='.$thisBook->id);
     }
@@ -169,7 +173,7 @@ class BookController extends Controller
         $thisBook = \App\Book::find($id);
         $room = \App\Room::find($thisBook->room_id);
         $codes = \App\discount_code::all();
-        $thiscode = 0;
+        $thiscode = null;
         foreach($codes as $code){
             if($thisBook->code_name == $code->name){
                 $thiscode = $code;
