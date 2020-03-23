@@ -4,24 +4,24 @@
 Cảm ơn quý khách đã sử dụng dịch vụ của The Runner.
 
 <div class="my-container">
-    <div class="text-center">   
+    <div class="text-center">
         <h2 class="text-center text-white">Thông tin đặt phòng</h2>
-    
+
         <small class="text-center text-info">Vui lòng ghi nhớ mã đặt phòng trong trường hợp cần thiết</small>
     </div>
     <div class="container p-5">
         <table class="table table-dark text-left" id="my-table">
-        
+
             <tbody>
                 <tr>
                     <th class="text-orange">Mã đặt phòng</th>
                     <td class="text-justify text-danger">{{$thisBook->id}}</td>
                 </tr>
-                
+
                 <tr>
                     <th class="text-orange">Họ và tên</th>
                     <td class="text-justify">{{$thisBook->customer_name}}</td>
-                </tr>        
+                </tr>
                 <tr>
                     <th class="text-orange">Email</th>
                     <td class="text-justify">{{$thisBook->customer_email}}</td>
@@ -59,7 +59,7 @@ Cảm ơn quý khách đã sử dụng dịch vụ của The Runner.
                     <tr>
                         <th class="text-orange">Mã giảm giá</th>
                         <td class="text-justify">{{$thisBook->code_name}}
-                            
+
                             @if($thiscode->status==1)
                                 (mã không còn hiệu lực)
                             @endif
@@ -73,16 +73,13 @@ Cảm ơn quý khách đã sử dụng dịch vụ của The Runner.
             </tbody>
         </table>
     </div>
-    <!-- <script>
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-        }
-    </script> -->
+
 </div>
-<!-- @component('mail::button', ['url' => ''])
-Button Text
-@endcomponent -->
+@component('mail::button', ['url' => '#'])
+Huỷ đặt phòng
+@endcomponent
 Hẹn gặp lại quý khách tại The Runner. Quý khách vui lòn đến sớm hơn giờ chơi 15 phút để check-in phòng chơi.
+<br>
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

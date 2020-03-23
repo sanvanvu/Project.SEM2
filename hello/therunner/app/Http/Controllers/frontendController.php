@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use \App\Room;
 use \App\discount_code;
 use \App\Book;
+use App\Mail\Checkoutmail;
+use Illuminate\Support\Facades\Mail;
 
 class frontendController extends Controller
 {
@@ -35,7 +37,7 @@ class frontendController extends Controller
 
         $room_name = 'logic';
         $room_tag = 'Logical thinking';
-        
+
         return view('all_logic_rooms')->with(
             [
                 'lsLogical' => $lsLogical,
@@ -59,7 +61,7 @@ class frontendController extends Controller
         }
         $room_name = 'horror';
         $room_tag = 'Courage & team work';
-        
+
         return view('all_horror_rooms')->with(
             [
                 'lsHorror' => $lsHorror,
@@ -130,7 +132,7 @@ class frontendController extends Controller
             $book = Book::withTrashed()->find($id);
             $room = Room::find($book->room_id);
             $request->session()->flash('success', 'Phòng đã được huỷ từ trước!');
-        
+
             return redirect()->action('FrontendController@welcome');
         } elseif($book->customer_name == $name && $book->customer_email == $email){
             $codes = discount_code::all();
@@ -155,6 +157,87 @@ class frontendController extends Controller
             $request->session()->flash('danger', 'Thông tin đặt phòng không chính xác. Vui lòng kiểm tra lại!');
             return redirect()->action('FrontendController@welcome');
         }
-        
+
+    }
+
+    public function store(Request $request)
+    {
+        $name = $request->name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $numbers = $request->numbers;
+        $roomId = $request->room_id;
+        $bookDate = $request->book_date;
+        $bookTime = $request->book_time;
+        $codeName = $request->code;
+        $lsRoom = Room::all();
+        $room = Room::find($roomId);
+
+        $lsCode = discount_code::all();
+        $price = 0;
+        $check = false;
+        foreach($lsCode as $code){
+            if($codeName==$code->name && $code->status==0){
+                $check = true;
+                $codeId = $code->id;
+                break;
+            }
+        }
+
+        if($check == false){
+            $price = $room->room_price*$numbers*1000;
+        } else {
+            $code = discount_code::find($codeId);
+            if($code->type == 1){
+                $price = $room->room_price*$numbers*(100-$code->value)/100*1000;
+            } else if($code->type == 0){
+                $price = ($room->room_price*$numbers - $code->value)*1000;
+            }
+        }
+
+        $book = new Book();
+        $book->customer_name = $name;
+        $book->customer_email = $email;
+        $book->phone_number = $phone;
+        $book->number_of_customers = $numbers;
+        $book->room_id = $roomId;
+        $book->book_date = $bookDate;
+        $book->book_time = $bookTime;
+
+        $book->price = $price;
+        $book->code_name = $codeName;
+
+        $book -> save();
+        if($check = false){
+            $request->session()->flash('success', 'Đặt phòng thành công, mã giảm giá ko hợp lệ');
+        } else{
+            $request->session()->flash('success', 'Đặt phòng thành công');
+        }
+        $thisBook = Book::find($book->id);
+        Mail::to($thisBook->customer_email)->send(new Checkoutmail($thisBook));
+        // return redirect()->action('BookController@check_out', [$thisBook->id]);
+        return redirect('checkout.html?id='.$thisBook->id);
+    }
+
+    public function check_out(Request $request){
+        $id = $request->id;
+        $thisBook = Book::find($id);
+        $room = Room::find($thisBook->room_id);
+        $codes = discount_code::all();
+        $thiscode = null;
+        foreach($codes as $code){
+            if($thisBook->code_name == $code->name){
+                $thiscode = $code;
+                break;
+            }
+        }
+        //dd($thiscode->name);
+        return view('checkout')->with(
+            [
+                'thisBook' => $thisBook,
+                'room' => $room,
+                'thiscode' => $thiscode
+            ]
+        );
     }
 }

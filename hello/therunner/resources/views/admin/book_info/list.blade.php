@@ -29,8 +29,6 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
   </form>
   <br>
-  <a href="book/create" class="btn btn-primary">Add</a>
-  <br>
   <p></p>
   <table class="table">
     <tr>
@@ -107,7 +105,7 @@
           <td class="text-primary">{{$book->deleted_at}}</td>
         </tr>
       @endif
-      
+
     @endforeach
 
   </table>

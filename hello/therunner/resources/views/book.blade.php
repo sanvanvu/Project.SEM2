@@ -9,7 +9,7 @@
         <p class="text-white"><b class="text-orange">Ngày chơi:</b> {{date('D d/m/Y', strtotime($mydate))}}</p>
         <div class="row bg-dark rounded">
             <div class="col-md-7">
-                <form class="p-3" method="post" action="{{asset('book')}}">
+                <form class="p-3" method="post" action="{{asset('fe')}}">
                 @csrf
                     <div class="form-group">
                         <label for="name" class="text-white">Họ và tên</label>
@@ -17,11 +17,11 @@
                     </div>
                     <div class="form-group">
                         <label for="email" class="text-white">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required> 
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="phone" class="text-white">Số điện thoại</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required> 
+                        <input type="text" class="form-control" id="phone" name="phone" required>
                     </div>
                             <div class="form-group">
                                 <label for="numbers" class="text-white">Số người chơi</label>
@@ -38,10 +38,10 @@
                                 <br>
                                 <input type="submit" id="check-people" value="Xác nhận giá" class="form-control bg-info border-0 text-white">
                             </div>
-                    
+
                     <div class="form-group">
-                        <input type="hidden" class="form-control" id="book_date" name="book_date" value="{{$mydate}}"> 
-                        <input type="hidden" class="form-control" id="room_id" name="room_id" value="{{$id}}"> 
+                        <input type="hidden" class="form-control" id="book_date" name="book_date" value="{{$mydate}}">
+                        <input type="hidden" class="form-control" id="room_id" name="room_id" value="{{$id}}">
                     </div>
                     <div class="form-group">
                         <label for="book_time" class="text-white">Giờ chơi</label>
@@ -54,16 +54,16 @@
                         <select id="book_time" name="book_time" class="form-control" required>
                             <option value="0" selected disabled>Chọn giờ chơi</option>
                             @if(date('D d/m/Y', strtotime($mydate)) == $today)
-                                @foreach($lsTime as $time)  
+                                @foreach($lsTime as $time)
                                     @foreach($lsBook as $book)
                                         @if($book->book_time==$time->time && $book->book_date==$mydate && $book->room_id == $room->id)
                                             <?php
                                                 $check = 1;
-                                            ?>    
+                                            ?>
                                         @elseif(date("H:ia", strtotime($time->time)) < $current)
                                             <?php
                                                 $check = 2;
-                                            ?> 
+                                            ?>
                                         @endif
                                     @endforeach
                                     @if($check==1)
@@ -75,15 +75,15 @@
                                     @endif
                                             <?php
                                                 $check = 0;
-                                            ?> 
+                                            ?>
                                 @endforeach
-                            @else 
-                                @foreach($lsTime as $time)  
+                            @else
+                                @foreach($lsTime as $time)
                                     @foreach($lsBook as $book)
                                         @if($book->book_time==$time->time && $book->book_date==$mydate && $book->room_id == $room->id)
                                             <?php
                                                 $check = 1;
-                                            ?>    
+                                            ?>
                                         @endif
                                     @endforeach
                                     @if($check==1)
@@ -93,17 +93,17 @@
                                     @endif
                                             <?php
                                                 $check = 0;
-                                            ?> 
+                                            ?>
                                 @endforeach
                             @endif
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="code" class="text-white">Mã giảm giá (nếu có)</label>
-                        <input type="text" class="form-control" id="code" name="code"> 
+                        <input type="text" class="form-control" id="code" name="code">
                     </div>
                     <div id="priceTag">
-                        
+
                     </div> <br>
                     <script>
                         var numberForm = document.getElementById('numbers');
@@ -125,7 +125,7 @@
                         }
                     </script>
                     <button type="submit" class="btn btn-warning">Xác nhận đặt phòng</button>
-                    
+
                 </form>
             </div>
             <div class="col-md-5 pt-5">
@@ -136,7 +136,7 @@
                 The Runner sẽ gọi điện để xác nhận lại việc đặt chỗ của quý khách từ 3-6 tiếng trước giờ chơi. Trong trường hợp không liên lạc được quá 2 lần, chúng tôi sẽ buộc phải hủy việc đặt trước của quý khách.
                 Xin quý khách vui lòng đến trước giờ chơi 15 phút để được phổ biến luật chơi
                 <br><br>
-                <span class="text-orange">Chú ý: Giá vé có thể thay đổi trong ngày nghỉ lễ hoặc các dịp đặc biệt khác.</span> 
+                <span class="text-orange">Chú ý: Giá vé có thể thay đổi trong ngày nghỉ lễ hoặc các dịp đặc biệt khác.</span>
                 <br><br>
                 Hẹn gặp lại quý khách tại The Runner!
                 </p>

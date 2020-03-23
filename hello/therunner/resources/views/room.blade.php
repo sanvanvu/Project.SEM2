@@ -97,7 +97,12 @@
                     subDiv.innerHTML = `
                     <button class="btn btn-dark"><a href="book.html?id=${getId}&book_date=${a}" class="text-white">Đặt phòng</a></button>
                     `;
-                });        
+                });     
+
+                dateForm.addEventListener("click", closeBtn);
+                function closeBtn(){
+                    subDiv.innerHTML = '';
+                }
             </script>
         </form>         
     </div>
