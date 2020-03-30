@@ -16,42 +16,83 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $filter = $request->input('filter');
-        $search = $request->search_title;
+        $search = $request->input('search_title');
+        $date = $request->input('date');
 
-        $lsBook =\App\Book::withTrashed()->orderBy('created_at', 'desc')->paginate(5);
+        $lsBook = \App\Book::withTrashed()->orderBy('created_at', 'desc')->paginate(9);
+        $count = \App\Book::withTrashed()->count();
 
-        if(isset($filter) && $filter==0){
-            //dd($lsBook);
+        if (isset($filter) && $filter == 0 && !$search && !$date) {
             date_default_timezone_set("Asia/Ho_Chi_Minh");
             $today = date('Y/m/d');
             $lsBook = \App\Book::orderBy('created_at', 'desc')->where('book_date', '>=', "$today");
+            $count = $lsBook->get()->count();
             $lsBook = $lsBook->paginate($lsBook->count());
-            // if(!isset($search)){
+            // dd($lsBook);
 
-            // } else{
-            //     $lsBook = $lsBook->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
-            //     $lsBook = $lsBook->paginate($lsBook->count());
-            // }
-        } elseif(isset($filter) && $filter==1){
+        } elseif (isset($filter) && $filter == 1 && !$search && !$date) {
             $lsBook = \App\Book::onlyTrashed()->orderBy('created_at', 'desc');
+            $count = $lsBook->get()->count();
             $lsBook = $lsBook->paginate($lsBook->count());
-            // if(!isset($search)){
-
-            // } else{
-            //     $lsBook = $lsBook->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
-            //     $lsBook = $lsBook->paginate($lsBook->count());
-            // }
-        } elseif(isset($filter) && $filter==2){
-            $lsBook = \App\Book::withTrashed()->orderBy('created_at', 'desc');
-            $lsBook = $lsBook->paginate(5);
-            // if(!isset($search)){
-
-            // } else{
-            //     $lsBook = $lsBook->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
-            //     $lsBook = $lsBook->paginate($lsBook->count());
-            // }
-        } elseif(isset($search)){
-            $lsBook = \App\Book::withTrashed()->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
+        } elseif (isset($filter) && $filter == 0 && $search && !$date) {
+            date_default_timezone_set("Asia/Ho_Chi_Minh");
+            $today = date('Y/m/d');
+            $lsBook = \App\Book::where([
+                ['book_date', '>=', "$today"],
+                ['customer_name', 'like', "%$search%"]
+            ])->orderBy('created_at', 'desc');
+            $count = $lsBook->get()->count();
+            $lsBook = $lsBook->paginate($lsBook->count());
+            // dd($lsBook);
+        } elseif (isset($filter) && $filter == 1 && $search && !$date) {
+            $lsBook = \App\Book::onlyTrashed()->orderBy('created_at', 'desc')->where('customer_name', 'like', "%$search%");
+            $count = $lsBook->get()->count();
+            $lsBook = $lsBook->paginate($lsBook->count());
+        } elseif (!$filter && $search && !$date) {
+            $lsBook = \App\Book::where('customer_name', 'like', "%$search%");
+            $count = $lsBook->get()->count();
+            $lsBook = $lsBook->paginate($lsBook->count());
+        } elseif (!$filter && !$search && $date) {
+            $lsBook = \App\Book::where('book_date', '=', "$date");
+            $count = $lsBook->get()->count();
+            $lsBook = $lsBook->paginate($lsBook->count());
+            // dd($lsBook);
+        } elseif (isset($filter) && $filter == 0 && !$search && $date) {
+            date_default_timezone_set("Asia/Ho_Chi_Minh");
+            $today = date('Y/m/d');
+            $lsBook = \App\Book::where([
+                ['book_date', '>=', "$today"],
+                ['book_date', '=', "$date"]
+            ])->orderBy('created_at', 'desc');
+            $count = $lsBook->get()->count();
+            $lsBook = $lsBook->paginate($lsBook->count());
+        } elseif (isset($filter) && $filter == 1 && !$search && $date){
+            $lsBook = \App\Book::onlyTrashed()->orderBy('created_at', 'desc')->where('book_date', '=', "$date");
+            $count = $lsBook->get()->count();
+            $lsBook = $lsBook->paginate($lsBook->count());
+        } elseif (!$filter&& $search && $date){
+            $lsBook = \App\Book::where([
+                ['customer_name', 'like', "%$search%"],
+                ['book_date', '=', "$date"]
+            ]);
+            $count = $lsBook->get()->count();
+            $lsBook = $lsBook->paginate($lsBook->count());
+        } elseif (isset($filter) && $filter == 0 && $search && $date){
+            date_default_timezone_set("Asia/Ho_Chi_Minh");
+            $today = date('Y/m/d');
+            $lsBook = \App\Book::where([
+                ['book_date', '>=', "$today"],
+                ['book_date', '=', "$date"],
+                ['customer_name', 'like', "%$search%"]
+            ])->orderBy('created_at', 'desc');
+            $count = $lsBook->get()->count();
+            $lsBook = $lsBook->paginate($lsBook->count());
+        } elseif (isset($filter) && $filter == 1 && $search && $date){
+            $lsBook = \App\Book::onlyTrashed()->orderBy('created_at', 'desc')->where([
+                ['book_date', '=', "$date"],
+                ['customer_name', 'like', "%$search%"]
+            ]);
+            $count = $lsBook->get()->count();
             $lsBook = $lsBook->paginate($lsBook->count());
         }
 
@@ -61,7 +102,8 @@ class BookController extends Controller
             [
                 'lsBook' => $lsBook,
                 'lsRoom' => $lsRoom,
-                'search' => $search
+                'search' => $search,
+                'count' => $count
             ]
         );
     }
@@ -111,11 +153,10 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     
+
 
     public function show($id)
     {
-
     }
 
     /**
@@ -150,7 +191,7 @@ class BookController extends Controller
     public function destroy($id, Request $request)
     {
         $book = \App\Book::find($id);
-        if($book == null){
+        if ($book == null) {
             $book = \App\Book::withTrashed()->find($id);
             $room = \App\Room::find($book->room_id);
             $request->session()->flash('success', 'Phòng đã được huỷ từ trước!');
@@ -161,7 +202,5 @@ class BookController extends Controller
         $request->session()->flash('success', 'Huỷ đặt phòng thành công!');
 
         return redirect()->action('FrontendController@welcome');
-
     }
-
 }

@@ -116,6 +116,7 @@ class frontendController extends Controller
 
     public function cancel(Request $request){
         $bookId = $request->input('id');
+        
         return view('cancel')->with(
             [
                 'bookId' => $bookId
@@ -129,9 +130,7 @@ class frontendController extends Controller
         $email = $request->email;
         $book = Book::find($id);
         if($book == null){
-            $book = Book::withTrashed()->find($id);
-            $room = Room::find($book->room_id);
-            $request->session()->flash('success', 'Phòng đã được huỷ từ trước!');
+            $request->session()->flash('success', 'Phòng đã được huỷ từ trước hoặc thông tin không hợp lệ. ');
 
             return redirect()->action('FrontendController@welcome');
         } elseif($book->customer_name == $name && $book->customer_email == $email){
@@ -214,13 +213,15 @@ class frontendController extends Controller
             $request->session()->flash('success', 'Đặt phòng thành công');
         }
         $thisBook = Book::find($book->id);
+        $bookSeri = serialize($thisBook->id);
+        //dd($bookSeri);
         Mail::to($thisBook->customer_email)->send(new Checkoutmail($thisBook));
         // return redirect()->action('BookController@check_out', [$thisBook->id]);
-        return redirect('checkout.html?id='.$thisBook->id);
+        return redirect('checkout.html?id='.$bookSeri);
     }
 
     public function check_out(Request $request){
-        $id = $request->id;
+        $id = unserialize($request->id);
         $thisBook = Book::find($id);
         $room = Room::find($thisBook->room_id);
         $codes = discount_code::all();

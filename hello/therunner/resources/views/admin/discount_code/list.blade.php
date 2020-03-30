@@ -55,9 +55,14 @@
     @endforeach
 
   </table>
-  <div class="align-middle">
+  <div class="align-middle d-flex justify-content-center">
     {{$lsCode -> links()}}
   </div>
 </div>
+
+<script>
+  const codeli = document.getElementById('codeli');
+  codeli.classList.add('active');
+</script>
 
 @endsection

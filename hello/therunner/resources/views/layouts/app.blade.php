@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>The Runner admin</title>
+    <title>The runner admin</title>
+    <link rel="shortcut icon" href="images/logo-01.png" />
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -37,16 +38,16 @@
                     <!-- Left Side Of Navbar -->
                     @auth
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                        <li class="nav-item" id="roomli">
                             <a class="nav-link" href="room">Rooms</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="codeli">
                             <a class="nav-link" href="discount_code">Discount codes</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="bookli">
                             <a class="nav-link" href="book">Book information</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="timeli">
                             <a class="nav-link" href="time_list">Time information</a>
                         </li>
                     </ul>

@@ -34,4 +34,9 @@
 
   </table>
 </div>
+
+<script>
+  const timeli = document.getElementById('timeli');
+  timeli.classList.add('active');
+</script>
 @endsection

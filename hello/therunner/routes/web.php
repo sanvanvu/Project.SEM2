@@ -13,9 +13,9 @@
 
 Route::get('/', 'FrontendController@welcome');
 Route::get('index.html', 'FrontendController@welcome');
-Route::get('logicalchallenges.html', 'FrontendController@logical_rooms');
-Route::get('horrorchallenges.html', 'FrontendController@horror_rooms');
-Route::get('allchallenges.html', 'FrontendController@all_rooms');
+Route::get('logicalchallenges.html', 'FrontendController@logical_rooms')->name('room.logic');
+Route::get('horrorchallenges.html', 'FrontendController@horror_rooms')->name('room.horror');
+Route::get('allchallenges.html', 'FrontendController@all_rooms')->name('room.all');
 Route::get('cancel.html', 'FrontendController@cancel')->name('user.cancel');
 Route::get('cancel_form.html', 'FrontendController@cancel_form');
 Route::get('room.html', 'FrontendController@room');
@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function(){
       Route::resource('room', 'RoomController');
       Route::resource('discount_code', 'CodeController');
       Route::resource('book', 'BookController');
+      Route::resource('time_list', 'timeController');
 });
 
 Route::get('checkout.html', 'FrontendController@check_out');

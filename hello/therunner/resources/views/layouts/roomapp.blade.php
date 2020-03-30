@@ -65,15 +65,15 @@
                         <a href="index.html">Trang chủ</a>
                       </li>
                       <li class="has-children active">
-                        <a href="#">Phòng chơi</a>
+                        <a href="{{route('room.all')}}">Phòng chơi</a>
                         <ul class="dropdown arrow-top">
                           <li><a href="logicalchallenges.html">Logical</a></li>
                           <li><a href="horrorchallenges.html">Horror</a></li>
                         </ul>
                       </li>
                       <li><a href="cancel.html" id="cancelBtn">Huỷ phòng chơi</a></li>
-                      <li><a href="about.html">Giới thiệu</a></li>
-                      <li><a href="contact.html">Liên hệ</a></li>
+                      <li><a href="#about">Giới thiệu</a></li>
+                      <li><a href="#contact">Liên hệ</a></li>
                     </ul>
                   </div>
                 </nav>
@@ -150,31 +150,25 @@
 
         <div class="row">
           <div class="col-md-4">
-            <h3 class="footer-heading mb-4 text-white">About</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat quos rem ullam, placeat amet.</p>
-            <p><a href="#" class="btn btn-primary pill text-white px-4">Read More</a></p>
+            <h3 class="footer-heading mb-4 text-white" id="about">Giới thiệu</h3>
+            <p>The Runner là công ty cung cấp dịch vụ giải trí cho nhóm chơi từ 2-8 người. Tư duy logic, sự dũng cảm và làm việc nhóm là yếu tố mà The Runner hướng tới cho người chơi. Để biết thêm thông tin chi tiết, vui long liên hệ với chúng tôi theo hotline và theo dõi fanpage.</p>
+            <!-- <p><a href="#" class="btn btn-primary pill text-white px-4">Read More</a></p> -->
           </div>
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-6">
                 <h3 class="footer-heading mb-4 text-white">Quick Menu</h3>
                   <ul class="list-unstyled">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Approach</a></li>
-                    <li><a href="#">Sustainability</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Careers</a></li>
+                    <li><a href="{{route('room.logic')}}">Logic rooms</a></li>
+                    <li><a href="{{route('room.horror')}}">Horror rooms</a></li>
                   </ul>
               </div>
               <div class="col-md-6">
-                <h3 class="footer-heading mb-4 text-white">Ministries</h3>
+                <h3 class="footer-heading mb-4 text-white" id="contact">Liên hệ</h3>
                   <ul class="list-unstyled">
-                    <li><a href="#">Children</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Bible Study</a></li>
-                    <li><a href="#">Church</a></li>
-                    <li><a href="#">Missionaries</a></li>
+                    <li><a href="#"><i class="fab fa-facebook fa-2x"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram fa-2x"></i></a></li>
+                    <li><a href="#"><i class="fab fa-youtube fa-2x"></i></a></li>
                   </ul>
               </div>
             </div>
@@ -198,7 +192,7 @@
           <div class="col-md-12">
             <p>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="fas fa-heart text-danger"></i><i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> The Runner
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>

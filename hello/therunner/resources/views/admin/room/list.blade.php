@@ -68,9 +68,14 @@
     @endforeach
 
   </table>
-  <div class="align-middle">
+  <div class="align-middle d-flex justify-content-center">
     {{$lsRoom -> links()}}
   </div>
 </div>
+
+<script>
+  const roomli = document.getElementById('roomli');
+  roomli.classList.add('active');
+</script>
 
 @endsection

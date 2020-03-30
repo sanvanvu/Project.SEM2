@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-  <p>Book information</p>
+  <h1 style="font-size: 2rem;" class="text-primary text-center">Thông tin đơn đặt hàng ({{$count}} đơn)</h1>
   <form action="" method="get">
     @csrf
     <label for="">Lọc đơn đặt phòng</label>
@@ -15,102 +15,75 @@
       <label for="off">
         Canceled
       </label>
-      <input type="radio" id="alltrash" name="filter" value="2">
-      <label for="alltrash">
-        Bỏ bộ lọc
-      </label>
-      <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit">Lọc</button>
+
+      <input class="form-control mr-sm-2 w-50 mb-2" type="search" placeholder="Tên khách hàng" aria-label="Search" name="search_title">
+      <input type="date" class="form-control w-50 mb-2" name="date">
+      <input class="form-control btn btn-success my-sm-0 w-25" type="submit" value="Lọc">
     </div>
   </form>
 
-  <form class="form-inline my-2 my-lg-0" method="get">
+  <!-- <form class="form-inline my-2 my-lg-0" method="get">
     @csrf
-      <input class="form-control mr-sm-2" type="search" placeholder="Tìm tên khách hàng" aria-label="Search" name="search_title" value="{{$search}}">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
-  </form>
+    <input class="form-control mr-sm-2" type="search" placeholder="Tìm tên khách hàng" aria-label="Search" name="search_title" value="{{$search}}">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+  </form> -->
   <br>
   <p></p>
-  <table class="table">
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone number</th>
-      <th>Number of customers</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Room</th>
-      <th>Discount code</th>
-      <th>Price</th>
-      <th>Canceled at</th>
 
-    </tr>
+  <div class="row">
+    <?php
+    date_default_timezone_set("Asia/Ho_Chi_Minh");
+    $current = date("H:ia");
+    $today = date('d/m/Y');
+    ?>
     @foreach($lsBook as $book)
-      <?php
-        date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $current = date("H:ia");
-        $today = date('d/m/Y');
-        //echo $today;
-        $thisroom = "";
-      ?>
-      @foreach($lsRoom as $room)
-        @if($book->room_id==$room->id)
-          <?php
-            $thisroom = $room->name;
-          ?>
-          @break
+    <?php
+    $thisRoom = "";
+    foreach ($lsRoom as $room) {
+      if ($book->room_id == $room->id) {
+        $thisRoom = $room;
+        // dd($room);
+        break;
+      }
+    }
+    ?>
+    <div class="col-md-4 col-sm-4">
+      <div class="jumbotron">
+        @if($today > date('d/m/Y', strtotime($book->book_date)) && !$book->deleted_at)
+        <h1 class="display-4 text-secondary" style="font-size: 2rem;">Đơn đặt phòng <span class="text-danger">{{$book->id}}</span></h1>
+        @elseif($book->deleted_at)
+        <h1 class="display-4 text-danger" style="font-size: 2rem;">Đơn đặt phòng <span class="text-danger">{{$book->id}}</span></h1>
+        @else
+        <h1 class="display-4 text-info" style="font-size: 2rem;">Đơn đặt phòng <span class="text-danger">{{$book->id}}</span></h1>
         @endif
-      @endforeach
-      @if($today > date('d/m/Y', strtotime($book->book_date)) )
-        <tr>
-          <td><b class="text-secondary">{{$book->id}}</b></td>
-          <td class="text-secondary">{{$book->customer_name}}</td>
-          <td class="text-secondary">{{$book->customer_email}}</td>
-          <td class="text-secondary">{{$book->phone_number}}</td>
-          <td class="text-secondary">{{$book->number_of_customers}}</td>
-          <td class="text-secondary">{{date('D d/m/Y', strtotime($book->book_date))}}</td>
-          <td class="text-secondary">{{date('H:ia', strtotime($book->book_time))}}</td>
-          <td class="text-secondary">{{$thisroom}}</td>
-          <td class="text-secondary">{{$book->code_name}}</td>
-          <td class="text-secondary">{{$book->price}}</td>
-          <td class="text-secondary">{{$book->deleted_at}}</td>
-        </tr>
-      @elseif($book->deleted_at!=null)
-        <tr>
-          <td><b class="text-danger">{{$book->id}}</b></td>
-          <td class="text-danger">{{$book->customer_name}}</td>
-          <td class="text-danger">{{$book->customer_email}}</td>
-          <td class="text-danger">{{$book->phone_number}}</td>
-          <td class="text-danger">{{$book->number_of_customers}}</td>
-          <td class="text-danger">{{date('D d/m/Y', strtotime($book->book_date))}}</td>
-          <td class="text-danger">{{date('H:ia', strtotime($book->book_time))}}</td>
-          <td class="text-danger">{{$thisroom}}</td>
-          <td class="text-danger">{{$book->code_name}}</td>
-          <td class="text-danger">{{$book->price}}</td>
-          <td class="text-danger">{{$book->deleted_at}}</td>
-        </tr>
-      @else
-        <tr>
 
-          <td><b class="text-primary">{{$book->id}}</b></td>
-          <td class="text-primary">{{$book->customer_name}}</td>
-          <td class="text-primary">{{$book->customer_email}}</td>
-          <td class="text-primary">{{$book->phone_number}}</td>
-          <td class="text-primary">{{$book->number_of_customers}}</td>
-          <td class="text-primary">{{date('D d/m/Y', strtotime($book->book_date))}}</td>
-          <td class="text-primary">{{date('H:ia', strtotime($book->book_time))}}</td>
-          <td class="text-primary">{{$thisroom}}</td>
-          <td class="text-primary">{{$book->code_name}}</td>
-          <td class="text-primary">{{$book->price}}</td>
-          <td class="text-primary">{{$book->deleted_at}}</td>
-        </tr>
-      @endif
-
+        <p>Khách hàng: {{$book->customer_name}}</p>
+        <p>Email: {{$book->customer_email}}</p>
+        <p>Số điện thoại: {{$book->phone_number}}</p>
+        <p>Ngày chơi: {{date('D d/m/Y', strtotime($book->book_date))}} lúc {{date('H:ia', strtotime($book->book_time))}}</p>
+        <p>
+          Phòng chơi: {{$thisRoom->name}}
+        </p>
+        <img src="{{$thisRoom->img}}" alt="" width="25%">
+        @if($book->deleted_at)
+        <small>Đơn đã huỷ ngày {{date('d/m/Y', strtotime($book-> deleted_at))}}</small>
+        @endif
+      </div>
+    </div>
     @endforeach
+  </div>
 
-  </table>
-  <div class="align-middle">
-    {{$lsBook -> links()}}
+
+
+  <div class="d-flex justify-content-center">
+    <div>
+      {{$lsBook -> links()}}
+    </div>
   </div>
 </div>
+
+<script>
+  const bookli = document.getElementById('bookli');
+  bookli.classList.add('active');
+</script>
 @endsection
