@@ -48,30 +48,35 @@
                         <?php
                             date_default_timezone_set("Asia/Ho_Chi_Minh");
                             $current = date("H:ia");
-                            $today = date('D d/m/Y');
+                            $today = date('d/m/Y');
+                            // echo date('d/m/Y', strtotime($mydate));
                             // echo $today;
                         ?>
                         <select id="book_time" name="book_time" class="form-control" required>
                             <option value="0" selected disabled>Chọn giờ chơi</option>
-                            @if(date('D d/m/Y', strtotime($mydate)) == $today)
+                            @if(date('d/m/Y', strtotime($mydate)) == $today)
                                 @foreach($lsTime as $time)
                                     @foreach($lsBook as $book)
                                         @if($book->book_time==$time->time && $book->book_date==$mydate && $book->room_id == $room->id)
                                             <?php
                                                 $check = 1;
                                             ?>
+                                            @break
                                         @elseif(date("H:ia", strtotime($time->time)) < $current)
                                             <?php
                                                 $check = 2;
                                             ?>
-                                        @endif
+                                            @break
+                                        @endif 
                                     @endforeach
                                     @if($check==1)
                                         <option value="{{$time->time}}" disabled>{{date("g:ia", strtotime($time->time))}} (hết chỗ)</option>
                                     @elseif($check==2)
-                                        <option value="{{$time->time}}" disabled>{{date("g:ia", strtotime($time->time))}} (quá giờ)</option>
+                                        <option value="{{$time->time}}" disabled>{{date("g:ia", strtotime($time->time))}} (quá giờ)
+                                        </option>
                                     @else
-                                        <option value="{{$time->time}}">{{date("g:ia", strtotime($time->time))}}</option>
+                                        <option value="{{$time->time}}">{{date("g:ia", strtotime($time->time))}}
+                                        </option>
                                     @endif
                                             <?php
                                                 $check = 0;
@@ -84,12 +89,15 @@
                                             <?php
                                                 $check = 1;
                                             ?>
+                                            @break
                                         @endif
                                     @endforeach
                                     @if($check==1)
-                                        <option value="{{$time->time}}" disabled>{{date("g:ia", strtotime($time->time))}} (hết chỗ)</option>
+                                        <option value="{{$time->time}}" disabled>{{date("g:ia", strtotime($time->time))}} (hết chỗ)
+                                        </option>
                                     @else
-                                        <option value="{{$time->time}}">{{date("g:ia", strtotime($time->time))}}</option>
+                                        <option value="{{$time->time}}">{{date("g:ia", strtotime($time->time))}}
+                                        </option>
                                     @endif
                                             <?php
                                                 $check = 0;
