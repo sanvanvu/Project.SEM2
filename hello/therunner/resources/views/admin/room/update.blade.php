@@ -21,7 +21,8 @@
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" class="form-control" value="{{$room->name}}">
                 <label for="image">Image</label>
-                <input type="file" id="image" name="image" class="form-control" value="{{$room->img}}">
+                <!-- <input type="file" id="image" name="image" class="form-control" value="{{$room->img}}"> -->
+                <input type="text" id="image" name="image" class="form-control" value="{{$room->img}}">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{$room->description}}</textarea>
                 <!-- <input type="text" id="description" name="description" class="form-control"> -->

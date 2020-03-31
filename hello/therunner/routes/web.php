@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', 'FrontendController@welcome');
-Route::get('index.html', 'FrontendController@welcome');
-Route::get('logicalchallenges.html', 'FrontendController@logical_rooms')->name('room.logic');
-Route::get('horrorchallenges.html', 'FrontendController@horror_rooms')->name('room.horror');
-Route::get('allchallenges.html', 'FrontendController@all_rooms')->name('room.all');
-Route::get('cancel.html', 'FrontendController@cancel')->name('user.cancel');
-Route::get('cancel_form.html', 'FrontendController@cancel_form');
-Route::get('room.html', 'FrontendController@room');
+Route::get('/', 'frontendController@welcome');
+Route::get('index.html', 'frontendController@welcome');
+Route::get('logicalchallenges.html', 'frontendController@logical_rooms')->name('room.logic');
+Route::get('horrorchallenges.html', 'frontendController@horror_rooms')->name('room.horror');
+Route::get('allchallenges.html', 'frontendController@all_rooms')->name('room.all');
+Route::get('cancel.html', 'frontendController@cancel')->name('user.cancel');
+Route::get('cancel_form.html', 'frontendController@cancel_form');
+Route::get('room.html', 'frontendController@room');
 Route::get('book.html', 'BookController@create');
 
 
@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function(){
       Route::resource('time_list', 'timeController');
 });
 
-Route::get('checkout.html', 'FrontendController@check_out');
+Route::get('checkout.html', 'frontendController@check_out');
 
 // use App\Mail\Checkoutmail;
 // use Illuminate\Support\Facades\Mail;

@@ -55,7 +55,7 @@ class RoomController extends Controller
         $price = $request->input('price');
         $address = $request->input('address');
         $hot = $request->input('hot');
-        //dd('hello');
+
         $room = new \App\Room();
         $room->type = $type;
         $room->name = $name;
@@ -63,10 +63,8 @@ class RoomController extends Controller
         $room->level = $level;
         $room->room_price = $price;
         $room->address = $address;
-        dd($request->image);
         if ($request->hasFile('image')) {
             $imgName = time().".".$request->image->extension();
-            dd($request->image->extension());
             $request->image->move(public_path('image_upload'), $imgName);
             $cover_path = "image_upload/".$imgName;
             $room->img = $cover_path;
@@ -131,13 +129,14 @@ class RoomController extends Controller
         $room->level = $level;
         $room->room_price = $price;
         $room->address = $address;
-        if ($request->hasFile('image')) {
-            $imgName = time().".".$request->image->extension();
-            $request->image->move(public_path('image_upload'), $imgName);
-            $cover_path = "image_upload/".$imgName;
-            $room->img = $cover_path;
-        }
+        // if ($request->hasFile('image')) {
+        //     $imgName = time().".".$request->image->extension();
+        //     $request->image->move(public_path('image_upload'), $imgName);
+        //     $cover_path = "image_upload/".$imgName;
+        //     $room->img = $cover_path;
+        // }
         $room->hot = $hot;
+        $room->img = $image;
 
         $room->save();
 

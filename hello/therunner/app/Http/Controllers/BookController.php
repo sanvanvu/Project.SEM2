@@ -121,6 +121,7 @@ class BookController extends Controller
         $room = \App\Room::find($id);
         $lsBook = \App\Book::all();
         $lsTime = \App\Time_list::all();
+        dd($lsTime);
         $check = 0;
 
         $lsCode = \App\discount_code::select('name')->get();

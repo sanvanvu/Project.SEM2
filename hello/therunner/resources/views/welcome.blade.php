@@ -19,7 +19,7 @@
                             <b>HOT</b>
                         </span>
                     @endif
-                    <a href="room.html?id={{$logical->id}}" class="d-block mb-0 thumbnail"><img src="{{$logical->img}}" alt="Image" class="img-fluid"></a>
+                    <a href="room.html?id={{$logical->id}}" class="d-block mb-0 thumbnail"><img src="{{ asset($logical->img) }}" alt="Image" class="img-fluid"></a>
                     <div class="hotel-room-body">
                         <h4 class="heading mb-0"><a href="room.html?id={{$logical->id}}">{{$logical->name}}</a></h4>
                         @for($i = 0; $i < $logical->level; $i++)

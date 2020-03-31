@@ -17,6 +17,7 @@ class CreateTimeListsTable extends Migration
             $table->bigIncrements('id');
             $table->string('time_list');
             $table->timestamps();
+            $table->date('deleted_at')->nullable(true);
         });
     }
 

@@ -23,6 +23,7 @@ class CreateRoomsTable extends Migration
             $table->string('address');
             
             $table->timestamps();
+            $table->date('deleted_at')->nullable(true);
         });
     }
 
