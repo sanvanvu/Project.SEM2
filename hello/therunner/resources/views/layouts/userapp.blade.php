@@ -32,7 +32,8 @@
     
   </head>
   <body>
-  
+  @yield('style')
+
   <div class="site-wrap">
 
     <div class="site-mobile-menu">
@@ -52,7 +53,7 @@
           <div class="py-1">
             <div class="row align-items-center">
               <div class="col-2">
-                <a href="index.html"><img src="images/logo-01.png" alt="" width="45%"></a>
+                <a href="index.html"><img src="images/logo-01.png" alt="" width="55px"></a>
                 <!-- <h2 class="mb-0 site-logo"><a href="index.html">The Runner</a></h2> -->
               </div>
               <div class="col-10">

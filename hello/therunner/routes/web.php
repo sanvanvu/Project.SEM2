@@ -21,6 +21,8 @@ Route::get('cancel_form.html', 'frontendController@cancel_form');
 Route::get('room.html', 'frontendController@room');
 Route::get('book.html', 'BookController@create');
 
+Route::get('cancel/{id}', 'frontendController@destroy')->name('room.cancel');
+
 
 Route::group(['middleware' => 'auth'], function(){
       Route::resource('room', 'RoomController');

@@ -50,12 +50,8 @@
                 </tr>
             </tbody>
         </table>
-        <form method="post" action="book/{{$id}}" onsubmit="return confirm('Are you sure?')">
-              @csrf
-              @method('delete')
-              <input type="submit" name="" value="Xác nhận huỷ phòng" class="btn btn-danger">
-        </form>
-    </div>
+        <a href="{{ route('room.cancel', ['id' => $book->id]) }}"><input type="submit" name="" value="Xác nhận huỷ phòng" class="btn btn-danger"></a>
+    </div> 
 </div>
 
 @endsection

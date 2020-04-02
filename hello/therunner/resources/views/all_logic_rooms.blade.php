@@ -1,5 +1,15 @@
 @extends('layouts.allroomsapp')
 
+@section('style')
+<style>
+    @media (max-width: 768px){
+        .pl-none{
+            padding: 20px !important;
+        }
+    }
+</style>
+@endsection
+
 @section('content')
     <div class="my-container">
         <div class="count">
@@ -8,7 +18,7 @@
         <br>
         <hr color="#1c1c1c" size="0">
         <div class="row">
-            <div class="col-md-3 pl-5">
+            <div class="col-md-3 pl-5 pl-none">
                 <div class="filer">
                     <b class="text-orange">Lọc theo độ khó</b>
                     <form action="" method="get">

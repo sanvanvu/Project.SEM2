@@ -1,9 +1,29 @@
 @extends('layouts.roomapp')
 
+@section('style')
+<style>
+    @media (max-width: 768px){
+        .btn-media{
+            margin-bottom: 20px;
+        }
+
+        .pl-none{
+            padding: 15px !important;
+        }
+
+        #modal-content{
+            width: 80%;
+            margin-left: 10%;
+            top: 50%;
+        }
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="my-container">
      <div class="row">
-        <div class="col-md-6 pl-5">
+        <div class="col-md-6 pl-5 pl-none">
             <article>
                 <h1 class="text-white">{{$room->name}}</h1>
                 <span class="text-warning">
@@ -16,7 +36,7 @@
                 </span>
                 <p class="text-white text-justify">{{$room->description}}</p>
             </article>
-            <div class="col-md-6">
+            <div class="col-md-6 btn-media">
                     <button class="btn btn-warning form-control text-secondary" id="book-button">Đặt phòng</button>
             </div>          
         </div>

@@ -49,11 +49,11 @@ class BookController extends Controller
             $count = $lsBook->get()->count();
             $lsBook = $lsBook->paginate($lsBook->count());
         } elseif (!$filter && $search && !$date) {
-            $lsBook = \App\Book::where('customer_name', 'like', "%$search%");
+            $lsBook = \App\Book::withTrashed()->where('customer_name', 'like', "%$search%");
             $count = $lsBook->get()->count();
             $lsBook = $lsBook->paginate($lsBook->count());
         } elseif (!$filter && !$search && $date) {
-            $lsBook = \App\Book::where('book_date', '=', "$date");
+            $lsBook = \App\Book::withTrashed()->where('book_date', '=', "$date");
             $count = $lsBook->get()->count();
             $lsBook = $lsBook->paginate($lsBook->count());
             // dd($lsBook);
@@ -71,7 +71,7 @@ class BookController extends Controller
             $count = $lsBook->get()->count();
             $lsBook = $lsBook->paginate($lsBook->count());
         } elseif (!$filter&& $search && $date){
-            $lsBook = \App\Book::where([
+            $lsBook = \App\Book::withTrashed()->where([
                 ['customer_name', 'like', "%$search%"],
                 ['book_date', '=', "$date"]
             ]);
@@ -126,7 +126,7 @@ class BookController extends Controller
 
         $lsCode = \App\discount_code::select('name')->get();
 
-        return view('book')->with( 
+        return view('book')->with(
             [
                 'lsBook' => $lsBook,
                 'room' => $room,
@@ -197,11 +197,11 @@ class BookController extends Controller
             $room = \App\Room::find($book->room_id);
             $request->session()->flash('success', 'Phòng đã được huỷ từ trước!');
 
-            return redirect()->action('FrontendController@welcome');
+            return redirect()->action('frontendController@welcome');
         }
         $book->delete();
         $request->session()->flash('success', 'Huỷ đặt phòng thành công!');
 
-        return redirect()->action('FrontendController@welcome');
+        return redirect()->action('frontendController@welcome');
     }
 }

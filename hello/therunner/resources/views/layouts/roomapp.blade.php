@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="css/main.css">
     <!-- font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-    
+    @yield('style')
   </head>
   <body>
   
@@ -52,14 +52,14 @@
           <div class="py-1">
             <div class="row align-items-center">
               <div class="col-2">
-                <a href="index.html"><img src="images/logo-01.png" alt="" width="45%"></a>
+                <a href="index.html"><img src="images/logo-01.png" alt="" width="55px"></a>
                 <!-- <h2 class="mb-0 site-logo"><a href="index.html">The Runner</a></h2> -->
               </div>
               <div class="col-10">
                 <nav class="site-navigation text-right" role="navigation">
                   <div class="container">
                     
-                    <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3">&#8801;</span></a></div>
+                    <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3"></span></a></div>
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
                       <li>
                         <a href="index.html">Trang chủ</a>

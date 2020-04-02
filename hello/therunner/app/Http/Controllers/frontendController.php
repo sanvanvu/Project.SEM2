@@ -128,11 +128,25 @@ class frontendController extends Controller
         $id = $request->id;
         $name = $request->name;
         $email = $request->email;
+        $check = false;
+        foreach(Book::all() as $book){
+            if($book->id == $id){
+                $check = true;
+                break;
+            }
+        }
+
+        if($check == false){
+            $request->session()->flash('danger', 'Mã phòng không hợp lệ. ');
+            return redirect()->action('frontendController@welcome');
+        }
+
         $book = Book::find($id);
+        // dd($book);
         if($book == null){
             $request->session()->flash('success', 'Phòng đã được huỷ từ trước hoặc thông tin không hợp lệ. ');
 
-            return redirect()->action('FrontendController@welcome');
+            return redirect()->action('frontendController@welcome');
         } elseif($book->customer_name == $name && $book->customer_email == $email){
             $codes = discount_code::all();
             $thiscode = 0;
@@ -143,7 +157,7 @@ class frontendController extends Controller
                 }
             }
             $room = Room::find($book->room_id);
-            //dd($room);
+            // dd($room);
             return view('cancel_form')->with(
                 [
                     'id' => $id,
@@ -154,7 +168,7 @@ class frontendController extends Controller
             );
         } else{
             $request->session()->flash('danger', 'Thông tin đặt phòng không chính xác. Vui lòng kiểm tra lại!');
-            return redirect()->action('FrontendController@welcome');
+            return redirect()->action('frontendController@welcome');
         }
 
     }
@@ -240,5 +254,21 @@ class frontendController extends Controller
                 'thiscode' => $thiscode
             ]
         );
+    }
+
+    public function destroy($id, Request $request)
+    {
+        $book = \App\Book::find($id);
+        if ($book == null) {
+            $book = \App\Book::withTrashed()->find($id);
+            $room = \App\Room::find($book->room_id);
+            $request->session()->flash('success', 'Phòng đã được huỷ từ trước!');
+
+            return redirect()->action('frontendController@welcome');
+        }
+        $book->delete();
+        $request->session()->flash('success', 'Huỷ đặt phòng thành công!');
+
+        return redirect()->action('frontendController@welcome');
     }
 }

@@ -34,7 +34,7 @@
     <?php
     date_default_timezone_set("Asia/Ho_Chi_Minh");
     $current = date("H:ia");
-    $today = date('d/m/Y');
+    $today = date('Y/m/d');
     ?>
     @foreach($lsBook as $book)
     <?php
@@ -49,12 +49,12 @@
     ?>
     <div class="col-md-4 col-sm-4">
       <div class="jumbotron">
-        @if($today > date('d/m/Y', strtotime($book->book_date)) && !$book->deleted_at)
+        @if(date('Y/m/d', strtotime($book->book_date)) < $today && !$book->deleted_at)
         <h1 class="display-4 text-secondary" style="font-size: 2rem;">Đơn đặt phòng <span class="text-danger">{{$book->id}}</span></h1>
         @elseif($book->deleted_at)
         <h1 class="display-4 text-danger" style="font-size: 2rem;">Đơn đặt phòng <span class="text-danger">{{$book->id}}</span></h1>
         @else
-        <h1 class="display-4 text-info" style="font-size: 2rem;">Đơn đặt phòng <span class="text-danger">{{$book->id}}</span></h1>
+        <h1 class="display-4 text-primary" style="font-size: 2rem;">Đơn đặt phòng <span class="text-danger">{{$book->id}}</span></h1>
         @endif
 
         <p>Khách hàng: {{$book->customer_name}}</p>

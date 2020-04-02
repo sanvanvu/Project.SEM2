@@ -126,3 +126,13 @@
         margin-left: 15%;;
     }
 }
+
+@media (max-width: 1000px){
+    .text-media{
+        font-size: 0.7rem !important;
+    }
+
+    .hmedia{
+        font-size: 0.7rem;
+    }
+}

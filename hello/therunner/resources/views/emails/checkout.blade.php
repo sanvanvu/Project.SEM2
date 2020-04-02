@@ -75,7 +75,7 @@ Cảm ơn quý khách đã sử dụng dịch vụ của The Runner.
     </div>
 
 </div>
-@component('mail::button', ['url' => '#'])
+@component('mail::button', ['url' => 'http://arcane-fortress-30888.herokuapp.com/cancel.html'])
 Huỷ đặt phòng
 @endcomponent
 Hẹn gặp lại quý khách tại The Runner. Quý khách vui lòn đến sớm hơn giờ chơi 15 phút để check-in phòng chơi.
